@@ -9,7 +9,7 @@ public class PlayerBehaviour : MonoBehaviour
 int quantidadePulos = 2;
 Rigidbody2D rb;    
 [SerializeField] private float velocidade = 5.0f;
-
+bool podepular;
 void Start()
 {
     rb = GetComponent<Rigidbody2D>();
@@ -22,8 +22,9 @@ void Start()
     movePlayer();
     if (Input.GetKeyDown(KeyCode.UpArrow))
     {
+        if(podepular == true){
         pulo();
-    }
+    }}
     }
 
 void movePlayer()
@@ -33,8 +34,24 @@ void movePlayer()
 }
 void pulo()
 {
-    
+    quantidadePulos = quantidadePulos - 1;
     rb.velocity = new Vector2(0,velocidadePulo);
-}
-}
 
+}
+void OnCollisionEnter2D(Collision2D other)
+{
+if(other.gameObject.CompareTag("Ground"))
+{
+    quantidadePulos = 2;
+    podepular = true;
+}
+}
+void OnCollisionExit2D(Collision2D other)
+{
+    if(other.gameObject.CompareTag("Ground"))
+    if(quantidadePulos == 0)
+    {
+        podepular = false;
+    }
+}
+}
