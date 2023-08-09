@@ -11,7 +11,7 @@ public class PlayerBehaviour : MonoBehaviour
     // Pulo
     [SerializeField] private float velocidadePulo = 5.0f;
     int quantidadeDePulos = 2;
-
+    bool podePular; 
 
     void Start()
     {
@@ -21,11 +21,15 @@ public class PlayerBehaviour : MonoBehaviour
     void Update()
     {
         movePlayer();
+
         //Se apertar no botão espaço
         if(Input.GetKeyDown(KeyCode.UpArrow))
         {
-            pulo();
+            if(podePular == true && quantidadeDePulos > 0){
+                pulo();
+            }
         }
+
     }
 
     void movePlayer()
@@ -38,7 +42,29 @@ public class PlayerBehaviour : MonoBehaviour
     void pulo()
     {
         //                        X       Y
+        quantidadeDePulos = quantidadeDePulos - 1;
         rb.velocity = new Vector2(0, velocidadePulo);
     }
 
+    //Verificar chão
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if(other.gameObject.CompareTag("Ground"))
+        {       
+            quantidadeDePulos = 2;
+            podePular = true;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D other)
+    {
+        if(other.gameObject.CompareTag("Ground"))
+        {
+            if(quantidadeDePulos == 0)
+            {
+                podePular = false;
+            }
+        }
+    }
 }
