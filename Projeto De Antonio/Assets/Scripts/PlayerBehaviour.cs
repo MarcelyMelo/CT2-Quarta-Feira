@@ -10,22 +10,23 @@ int quantidadePulos = 2;
 Rigidbody2D rb;    
 [SerializeField] private float velocidade = 5.0f;
 bool podepular;
+
 void Start()
 {
     rb = GetComponent<Rigidbody2D>();
 
 }
-
-    
-    void Update()
-    {
+void Update()
+{
     movePlayer();
     if (Input.GetKeyDown(KeyCode.UpArrow))
     {
-        if(podepular == true){
-        pulo();
-    }}
+        if(podepular == true)
+        {
+            pulo();
+        }
     }
+}
 
 void movePlayer()
 {
@@ -40,18 +41,22 @@ void pulo()
 }
 void OnCollisionEnter2D(Collision2D other)
 {
+
 if(other.gameObject.CompareTag("Ground"))
 {
     quantidadePulos = 2;
     podepular = true;
 }
+
 }
+
 void OnCollisionExit2D(Collision2D other)
 {
     if(other.gameObject.CompareTag("Ground"))
+    {
     if(quantidadePulos == 0)
     {
         podepular = false;
-    }
+    }}
 }
 }
