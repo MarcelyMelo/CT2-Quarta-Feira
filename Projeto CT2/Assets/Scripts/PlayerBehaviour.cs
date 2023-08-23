@@ -67,4 +67,18 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
     }
+
+    // Moedas
+    void OnTriggerEnter2D(Collider2D outroObjeto)
+    {
+        if(outroObjeto.gameObject.tag == "Coin")
+        {
+            Destroy(outroObjeto.gameObject);
+
+        }
+    }
+
+
+
+
 }
