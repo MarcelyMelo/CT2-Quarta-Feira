@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
+    
 // Movimentacao
 [SerializeField] private float velocidadePulo = 5.0f;
 int quantidadePulos = 2;
@@ -57,6 +58,16 @@ void OnCollisionExit2D(Collision2D other)
     if(quantidadePulos == 0)
     {
         podepular = false;
-    }}
+    }
 }
+}
+
+void OnTriggerEnter2D(Collider2D outroobjeto)
+{
+        if(outroobjeto.gameObject.tag == "Coin")
+        {
+            Destroy(outroobjeto.gameObject);
+            }
+}
+    
 }
