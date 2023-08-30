@@ -13,9 +13,15 @@ public class PlayerBehaviour : MonoBehaviour
     int quantidadeDePulos = 2;
     bool podePular; 
 
+    // Pontuação
+    private GameController controladorDoPlayer;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        controladorDoPlayer = GameController.gc;
+        controladorDoPlayer.coins = 0;
     }
 
     void Update()
@@ -74,11 +80,8 @@ public class PlayerBehaviour : MonoBehaviour
         if(outroObjeto.gameObject.tag == "Coin")
         {
             Destroy(outroObjeto.gameObject);
-
+            controladorDoPlayer.coins++;
+            controladorDoPlayer.Score.text = controladorDoPlayer.coins.ToString();
         }
     }
-
-
-
-
 }
