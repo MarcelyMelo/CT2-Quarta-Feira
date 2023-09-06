@@ -16,21 +16,31 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
-                        // x é a horizontal
-                        // y é a vertical
-                        //      (x, y)
-        rb.velocity = new Vector2(velocidade, 0);
+        if(olhandoParaDireita())
+        {
+           rb.velocity = new Vector2(velocidade, 0);
+        }
+        else
+        {
+            rb.velocity = new Vector2(-velocidade, 0);
+        }
+        
     }
 
-    //O colisor de verificação saiu da plataforma
-    // então chegamos ao fim dela
+    
+    
     private void OnTriggerExit2D(Collider2D outroObjeto)
     {
-                                    // 1 direita
-                                    // -1 esquerda
-                                    //                       (x,            y)
-        transform.localScale = new Vector2(-(Mathf.Sign(rb.velocity.x)), transform.localScale.y);
-    }
 
+        if (outroObjeto.gameObject.tag == "Ground")
+        {
+           transform.localScale = new Vector2(-(Mathf.Sign(rb.velocity.x)), transform.localScale.y);
+        }
+        
+    }
+    private bool olhandoParaDireita()
+    {
+        return transform.localScale.x > 0.000001f;
+    }
 
 }
